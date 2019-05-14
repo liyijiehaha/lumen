@@ -14,3 +14,12 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+$router->post('/code','Test\TestController@code');
+$router->post('/fcode','Test\TestController@fcode');
+$router->post('/testsign','Test\TestController@testsign');
+
+//kaoshi
+$router->post('/reg','Test\RegController@reg');
+$router->get('/login','Test\RegController@login');
+$router->post('/logindo','Test\RegController@logindo');
+$router->get('/ajax','Test\RegController@ajax');
