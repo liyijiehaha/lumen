@@ -22,4 +22,5 @@ $router->post('/testsign','Test\TestController@testsign');
 $router->post('/reg','Test\RegController@reg');
 $router->get('/login','Test\RegController@login');
 $router->post('/logindo','Test\RegController@logindo');
-$router->get('/ajax','Test\RegController@ajax');
+$router->post('/regdo','Test\RegController@regdo');
+$router->post('/loginadddo','Test\RegController@loginadddo');
