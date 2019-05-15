@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\UserMiddleware;
+
 require_once __DIR__.'/../vendor/autoload.php';
 
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
@@ -56,15 +58,19 @@ $app->register(Illuminate\Redis\RedisServiceProvider::class);
 | route or middleware that'll be assigned to some specific routes.
 |
 */
-
+$app->middleware([
+    App\Http\Middleware\UserMiddleware::class
+]);
 // $app->middleware([
 //     App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
 // $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
-
+////     'auth' => App\Http\Middleware\Authenticate::class,
+//// ]);
+ $app->routeMiddleware([
+   'checklogin' => App\Http\Middleware\Checklogin::class,
+ ]);
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers
