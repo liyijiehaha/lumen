@@ -65,7 +65,7 @@ class RegController extends BaseController
         $data=json_encode($data);
         $enc_str=openssl_encrypt($data,$method,$key,$option,$iv);
         $base64=base64_encode($enc_str);
-        $url='http://passpost.1809a.com/reg/regdo';
+        $url='https://lyjapi.chenyys.com/reg/regdo';
         $ch=curl_init();
         //设置curl
         curl_setopt($ch,CURLOPT_URL,$url);
@@ -87,7 +87,7 @@ class RegController extends BaseController
         $data=json_encode($data);
         $enc_str=openssl_encrypt($data,$method,$key,$option,$iv);
         $base64=base64_encode($enc_str);
-        $url='http://passpost.1809a.com/reg/logindo';
+        $url='https://lyjapi.chenyys.com/reg/logindo';
         $ch=curl_init();
         //设置curl
         curl_setopt($ch,CURLOPT_URL,$url);
