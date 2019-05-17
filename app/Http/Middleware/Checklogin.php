@@ -22,7 +22,7 @@ class Checklogin
             ];
             die(json_encode($response,JSON_UNESCAPED_UNICODE));
         }
-        $key='login_token:id'.$request->input('id');
+        $key='laravel_database_login_token:id'.$request->inut('id');
         $local_token=Redis::get($key);
         if($token){
             if($token==$local_token){//token有效
