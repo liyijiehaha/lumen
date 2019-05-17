@@ -142,7 +142,6 @@ class RegController extends BaseController
 		$user_id=$request->input('user_id');
 		$where['user_id']=$user_id;
         $where['cart_status']=1;
-		//var_dump($where);die;
 		$res=DB::table('api_cart')
 			->join('api_goods', 'api_goods.goods_id', '=', 'api_cart.goods_id')
             ->where($where)
