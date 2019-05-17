@@ -19,14 +19,44 @@ $router->get('/', function () use ($router) {
 //$router->post('/testsign','Test\TestController@testsign');
 
 //kaoshi
-$router->post('/reg','Test\RegController@reg');
-$router->get('/login','Test\RegController@login');
-$router->post('/logindo','Test\RegController@logindo');
+//$router->post('/reg','Test\RegController@reg');
+//$router->get('/login','Test\RegController@login');
+//$router->post('/logindo','Test\RegController@logindo');
+//注册
 $router->post('/regdo','Test\RegController@regdo');
+//登录
 $router->post('/loginadddo','Test\RegController@loginadddo');
 //$router->post('/userinfo','Test\RegController@userinfo');
+//个人中心
 $router->post('/userinfo', [
     'as'=>'profile',
     'uses'=>'Test\RegController@userinfo',
     'middleware' => 'checklogin',
 ]);
+//商品列表
+$router->post('/goods','Test\RegController@goods');
+//商品详情页
+$router->get('/goodsdetail','Test\RegController@goodsdetail');
+//$router->post('/goodsdetail', [
+  //  'as'=>'profile',
+   // 'uses'=>'Test\RegController@userinfo',
+   // 'middleware' => 'checklogin',
+//]);
+//购物车
+$router->post('/addcart','Test\RegController@addcart');
+//购物车列表
+$router->post('/cartinfo','Test\RegController@cartinfo');
+$router->post('/addorder','Test\RegController@addorder');
+$router->post('/orderdetail','Test\RegController@orderdetail');
+
+
+
+
+
+
+
+
+
+
+
+

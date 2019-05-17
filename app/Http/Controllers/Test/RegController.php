@@ -101,9 +101,92 @@ class RegController extends BaseController
         curl_close($ch);
 
     }
-    public function userinfo(Request $request)
-    {
+    public function userinfo(Request $request){
         $id=$_GET['id'];
         $res=DB::table('api_users')->where(['id'=>$id])->first();
     }
+    public function goods(Request $request){
+       // $res=DB::table('api_goods')->take(10)->get()->toArray();
+		$res=DB::table('api_goods')->get()->toArray();
+        die(json_encode($res,JSON_UNESCAPED_UNICODE));
+    }
+	public function goodsdetail(Request $request){
+		$goods_id=$request->input('goods_id');
+		$res=DB::table('api_goods')->where(['goods_id'=>$goods_id])->first();
+		$arr=json_encode($res,JSON_UNESCAPED_UNICODE);
+		return $arr;
+	}
+	public function addcart(Request $request){
+		$data=$request->input();
+		$method='AES-256-CBC';
+        $key='xxyyzz';
+        $option=OPENSSL_RAW_DATA;
+        $iv='qwertyuiopasdfgh';
+        $data=json_encode($data);
+        $enc_str=openssl_encrypt($data,$method,$key,$option,$iv);
+        $base64=base64_encode($enc_str);
+		$url='http://passpost.1809a.com/goods/addcart';
+		$ch=curl_init();
+        //设置curl
+        curl_setopt($ch,CURLOPT_URL,$url);
+        curl_setopt($ch,CURLOPT_POST,1);
+        curl_setopt($ch,CURLOPT_POSTFIELDS,$base64);
+        curl_setopt($ch,CURLOPT_HTTPHEADER,['Content-Type:text/plain']);
+        //抓取curl
+        $res=curl_exec($ch);
+        $code=curl_errno($ch);
+        //关闭curl资源
+        curl_close($ch);
+	}
+	public function cartinfo(Request $request){
+		$user_id=$request->input('user_id');
+		$where['user_id']=$user_id;
+        $where['cart_status']=1;
+		//var_dump($where);die;
+		$res=DB::table('api_cart')
+			->join('api_goods', 'api_goods.goods_id', '=', 'api_cart.goods_id')
+            ->where($where)
+            ->get();
+        die(json_encode($res,JSON_UNESCAPED_UNICODE));	
+	}
+	public function addorder(Request $request){
+		$user_id=$request->input('user_id');
+		$order_amount=$request->input('order_amount');
+		$order_no=rand(10000,99999);
+		//return $order_no;die;
+		$data=[
+			'order_no'=>$order_no,
+			'user_id'=>$user_id,
+			'order_amount'=>$order_amount,
+			'pay_status'=>1,
+			'order_status'=>1,
+		];
+		$res=DB::table('api_order')->insert($data);
+		if($res){
+			$response=[
+				'errno'=>0,
+				'msg'=>'ok',
+			];
+		}else{
+			$response=[
+				'errno'=>80001,
+				'msg'=>'提交失败',
+			];
+		}
+		die(json_encode($response,JSON_UNESCAPED_UNICODE));
+	}
+	public function orderdetail(Request $request){
+		$res=DB::table('api_order')->get()->toArray();
+        die(json_encode($res,JSON_UNESCAPED_UNICODE));
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
