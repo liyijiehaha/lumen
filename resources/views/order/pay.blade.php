@@ -1,0 +1,1 @@
+<a href="http://lumen_api.1809a.com/pay/alipay/pay/{{$info->order_no}}"> 支付宝 支付 </a>

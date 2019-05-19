@@ -178,7 +178,27 @@ class RegController extends BaseController
 		$res=DB::table('api_order')->get()->toArray();
         die(json_encode($res,JSON_UNESCAPED_UNICODE));
 	}
-	
+	public function order(Request $request){
+		$order_no=$request->input('order_no');
+		$info = DB::table('api_order')->where(['order_no'=>$order_no])->get();
+		$info=json_encode($info);
+		$order_no=$info.$order_no;
+		if($info != NULL){
+			$reponse=[
+                    'errno'=>0,
+                    'msg'=>'ok',
+                    'data'=>$order_no
+                ];
+			die(json_encode($reponse, JSON_UNESCAPED_UNICODE));
+		}else{
+			$response=[
+				'errno'=>90001,
+				'msg'=>'订单号错误',
+			];
+			 die(json_encode($response, JSON_UNESCAPED_UNICODE));
+		}
+		
+	}
 	
 	
 	

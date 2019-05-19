@@ -46,9 +46,18 @@ $router->get('/goodsdetail','Test\RegController@goodsdetail');
 $router->post('/addcart','Test\RegController@addcart');
 //购物车列表
 $router->post('/cartinfo','Test\RegController@cartinfo');
+//下订单
 $router->post('/addorder','Test\RegController@addorder');
+//订单列表
 $router->post('/orderdetail','Test\RegController@orderdetail');
-
+//订单号
+$router->get('/order','Test\RegController@order');
+//支付宝支付
+$router->get('/pay/alipay/pay/{order_id}','Pay\AlipayController@pay');
+//同步
+$router->get('/pay/aliReturn','Pay\AlipayController@aliReturn');
+//异步
+$router->post('/pay/alipay/notify','Pay\AlipayController@notify');
 
 
 
